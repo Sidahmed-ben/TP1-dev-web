@@ -1,19 +1,7 @@
-import * as React from "react";
-import { styled } from "@mui/material/styles";
-import Paper from "@mui/material/Paper";
-import Grid from "@mui/material/Grid";
-import Cards from "./Cards";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import Papa from "papaparse";
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-}));
-
-export default function NestedGrid() {
+function CSVFileReader() {
   const [columns, setColumns] = useState([]);
   const [data, setData] = useState([]);
   const url =
@@ -22,10 +10,12 @@ export default function NestedGrid() {
   function extractCSVDataFromHTML(Mydocument) {
     const table = Mydocument.querySelector("table.waffle"); // Assuming the table has the "waffle" class
     const data = [];
+
     if (!table) {
       console.error("CSV table not found.");
-      return { data };
+      return { columns, data };
     }
+
     // Extract data rows from the table body
     const dataRows = table.querySelectorAll("tbody tr");
     dataRows.forEach((row) => {
@@ -52,14 +42,16 @@ export default function NestedGrid() {
       .then((htmlString) => {
         // Create a new DOMParser
         const parser = new DOMParser();
+
         // Use the parseFromString method to convert the HTML string into a document
         const doc = parser.parseFromString(htmlString, "text/html");
-        const extractedData = extractCSVDataFromHTML(doc);
-        // To not send the car name column
-        setColumns(extractedData[0].slice(1));
-        // To not send columns
-        setData(extractedData.slice(1));
-        console.log("col", extractedData);
+
+        const data = extractCSVDataFromHTML(doc);
+        console.log("Data:", data);
+
+        // You can access and manipulate the document as needed
+        const title = doc.querySelector("title");
+        console.log(title.textContent);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -67,16 +59,41 @@ export default function NestedGrid() {
   }, []);
 
   return (
-    <Grid sx={{ flexGrow: 1 }} container>
-      <Grid item xs={12}>
-        <Grid container justifyContent="center" spacing={3}>
-          {data.map((value) => (
-            <Grid key={value} item>
-              <Cards dataToSend={{ columns, value }}></Cards>
-            </Grid>
+    <div>
+      <h1>CSV File Reader</h1>
+
+      <div>
+        <strong>Columns:</strong>
+        <ul>
+          {columns.map((column, index) => (
+            <li key={index}>{column}</li>
           ))}
-        </Grid>
-      </Grid>
-    </Grid>
+        </ul>
+      </div>
+
+      <div>
+        <strong>Values:</strong>
+        <table>
+          <thead>
+            <tr>
+              {columns.map((column, index) => (
+                <th key={index}>{column}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((row, rowIndex) => (
+              <tr key={rowIndex}>
+                {columns.map((column, columnIndex) => (
+                  <td key={columnIndex}>{row[column]}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
   );
 }
+
+export default CSVFileReader;

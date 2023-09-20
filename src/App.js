@@ -1,7 +1,7 @@
 // App.js
 
 import React from "react";
-import HomePage from "./HomePage/HomePage";
+import HomePage from "./Pages/HomePage/HomePage";
 import NestedGrid from "./Components/NestedGrid";
 
 function App() {

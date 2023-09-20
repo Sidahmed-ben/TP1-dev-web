@@ -3,30 +3,22 @@ import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+// https://42consultingon-my.sharepoint.com/:x:/g/personal/sidahmed_benaissa_42c_fr/EWrue2P3bCNFhe40nspfcRMBSL-rG0CLwqe-XmD-MMwEbA?e=gq9qf7
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
+export default function MyTable(props) {
+  const { dataToSend } = props;
+  const columns = dataToSend.columns.slice(0, -1);
+  const values = dataToSend.value.slice(1, -1);
 
-const rows = [
-  createData("propiete", 4.0),
-  createData("propiete", 4.3),
-  createData("propiete", 11),
-  createData("propiete", 0.5),
-  createData("propiete", 9),
-];
-
-export default function MyTable() {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ margin: 0 }} aria-label="simple table">
         <TableBody>
-          {rows.map((row) => (
+          {columns.map((col, ind) => (
             <TableRow
-              key={row.name}
+              key={col}
               sx={{
                 "&:last-child td, &:last-child th": { border: 0, margin: 0 },
               }}
@@ -37,10 +29,10 @@ export default function MyTable() {
                 component="th"
                 scope="row"
               >
-                {row.name}
+                {col}
               </TableCell>
               <TableCell align="center" sx={{ fontSize: 20 }}>
-                {row.calories}
+                {values[ind]}
               </TableCell>
             </TableRow>
           ))}
