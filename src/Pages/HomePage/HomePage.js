@@ -5,7 +5,6 @@ function HomePage() {
   return (
     <div>
       <NestedGrid></NestedGrid>
-      {/* <CSVFileReader></CSVFileReader> */}
     </div>
   );
 }

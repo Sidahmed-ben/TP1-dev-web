@@ -3,23 +3,28 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import MyTable from "./Table";
-import { useState, useEffect } from "react";
 
 function Cards(props) {
   const { dataToSend } = props;
-  const [title, setTitle] = useState(dataToSend.value[0]);
-  const [imageUrl, setImageUrl] = useState(dataToSend.value[6]);
+  const title = dataToSend.value[0];
+  const imageUrl = dataToSend.value[6];
 
-  console.log(dataToSend);
   return (
     <div>
       <Card sx={{ minWidth: 400, margin: 10 }}>
         <CardMedia component="img" alt={title} height="250" image={imageUrl} />
         <CardContent sx={{ p: 0, m: 0, "&:last-child": { paddingBottom: 0 } }}>
           <Typography
-            sx={{ fontWeight: "bold", fontSize: 35, p: 2.5 }}
+            sx={{
+              fontWeight: "bold",
+              fontSize: 35,
+              pb: 4,
+              pl: 2,
+              pt: 4,
+              pr: 4,
+            }}
             gutterBottom
-            variant="h5"
+            variant="h3"
             component="div"
           >
             {title}

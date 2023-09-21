@@ -5,7 +5,6 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-// https://42consultingon-my.sharepoint.com/:x:/g/personal/sidahmed_benaissa_42c_fr/EWrue2P3bCNFhe40nspfcRMBSL-rG0CLwqe-XmD-MMwEbA?e=gq9qf7
 
 export default function MyTable(props) {
   const { dataToSend } = props;
