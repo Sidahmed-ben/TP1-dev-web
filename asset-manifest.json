@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/TP1-dev-web/static/js/main.5dba19fa.js",
+    "index.html": "/TP1-dev-web/index.html",
+    "main.5dba19fa.js.map": "/TP1-dev-web/static/js/main.5dba19fa.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.5dba19fa.js"
+  ]
+}
